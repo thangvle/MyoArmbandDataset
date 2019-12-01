@@ -238,32 +238,32 @@ if __name__ == '__main__':
     
     # Comment between here
     
-    examples, labels = load_evaluation_dataset.read_data('../../EvaluationDataset', type="training0")
+    examples, labels = load_evaluation_dataset.read_data('/home/tug18152/MyoArmbandDataset/EvaluationDataset', type="training0")
     datasets = [examples, labels]
 
-    np.save("formatted_datasets/saved_evaluation_dataset_training.npy", datasets)
+    np.save("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_training.npy", datasets)
     
-    examples, labels = load_evaluation_dataset.read_data('../../EvaluationDataset', type="Test0")
+    examples, labels = load_evaluation_dataset.read_data('/home/tug18152/MyoArmbandDataset/EvaluationDataset', type="Test0")
     datasets = [examples, labels]
 
-    np.save("formatted_datasets/saved_evaluation_dataset_test0.npy", datasets)
+    np.save("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test0.npy", datasets)
     
-    examples, labels = load_evaluation_dataset.read_data('../../EvaluationDataset', type="Test1")
+    examples, labels = load_evaluation_dataset.read_data('/home/tug18152/MyoArmbandDataset/EvaluationDataset', type="Test1")
     datasets = [examples, labels]
 
-    np.save("formatted_datasets/saved_evaluation_dataset_test1.npy", datasets)
+    np.save("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test1.npy", datasets)
     
     # And here if the pre-training dataset was already processed and saved
     
     # Comment between here
     
-    datasets_training = np.load("formatted_datasets/saved_evaluation_dataset_training.npy", encoding="bytes")
+    datasets_training = np.load("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_training.npy", encoding="bytes")
     examples_training, labels_training = datasets_training
     
-    datasets_test0 = np.load("formatted_datasets/saved_evaluation_dataset_test0.npy", encoding="bytes")
+    datasets_test0 = np.load("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test0.npy", encoding="bytes")
     examples_test0, labels_test0 = datasets_test0
     
-    datasets_test1 = np.load("formatted_datasets/saved_evaluation_dataset_test1.npy", encoding="bytes")
+    datasets_test1 = np.load("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test1.npy", encoding="bytes")
     examples_test1, labels_test1 = datasets_test1
     
     # And here if the pre-training of the network was already completed.

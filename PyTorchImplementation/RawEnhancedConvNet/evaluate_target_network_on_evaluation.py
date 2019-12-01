@@ -1,6 +1,7 @@
 import numpy as np
 import copy
 import time
+import sys
 
 import torch
 from torch.utils.data import TensorDataset
@@ -203,7 +204,7 @@ def pre_train_model(cnn, criterion, optimizer, scheduler, dataloaders, num_epoch
     print('Best val loss: {:4f}'.format(best_loss))
 
     # Save the best weights found to file
-    torch.save(best_weights, 'convnet_weights/best_pre_train_weights_target_raw.pt')
+    torch.save(best_weights, '/home/tug18152/MyoArmbandDataset/PyTorchImplementation/RawEnhancedConvNet/best_pre_train_weights_target_raw.pt')
 
 
 def calculate_fitness(examples_training, labels_training, examples_test0, labels_test0, examples_test1, labels_test_1,
@@ -294,7 +295,7 @@ def calculate_fitness(examples_training, labels_training, examples_test0, labels
             trainloader = torch.utils.data.DataLoader(train, batch_size=256, shuffle=True, drop_last=True)
             validationloader = torch.utils.data.DataLoader(validation, batch_size=128, shuffle=True, drop_last=True)
 
-            pre_trained_weights = torch.load('convnet_weights/best_pre_train_weights_target_raw.pt')
+            pre_trained_weights = torch.load('/home/tug18152/MyoArmbandDataset/PyTorchImplementation/RawEnhancedConvNet/best_pre_train_weights_target_raw.pt')
             cnn = target_network_raw_emg_enhanced.TargetNetwork(number_of_class=7,
                                                                 weights_pre_trained_convnet=pre_trained_weights,
                                                                 dropout=.5).cuda()
@@ -447,49 +448,50 @@ if __name__ == '__main__':
     allow_pickle = True
 
     # Comment between here
-    '''
-    examples, labels = load_pre_training_dataset.read_data('/home/thangvle/Desktop/github/MyoArmbandDataset/PreTrainingDataset')
+
+    examples, labels = load_pre_training_dataset.read_data('/home/tug18152/MyoArmbandDataset/PreTrainingDataset')
     datasets = [examples, labels]
 
-    np.save("/home/thangvle/Desktop/github/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_pre_training_dataset_spectrogram.npy", datasets)
-    '''
+    np.save("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_pre_training_dataset_spectrogram.npy", datasets)
+
     # And here if the pre-training dataset was already processed and saved
 
     # Comment between here
 
-    datasets_pre_training = np.load("/home/thangvle/Desktop/github/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_pre_training_dataset_spectrogram.npy", encoding="bytes", allow_pickle=True)
+    datasets_pre_training = np.load("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_pre_training_dataset_spectrogram.npy", encoding="bytes", allow_pickle=True)
     examples_pre_training, labels_pre_training = datasets_pre_training
     calculate_pre_training(examples_pre_training, labels_pre_training)
 
     # Comment between here
 
-    examples, labels = load_evaluation_dataset.read_data('/home/thangvle/Desktop/github/MyoArmbandDataset/EvaluationDataset', type="training0")
+    examples, labels = load_evaluation_dataset.read_data('/home/tug18152/MyoArmbandDataset/EvaluationDataset', type="training0")
     datasets = [examples, labels]
 
-    np.save("/home/thangvle/Desktop/github/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_training.npy", datasets)
+    np.save("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_training.npy", datasets)
 
-    examples, labels = load_evaluation_dataset.read_data('/home/thangvle/Desktop/github/MyoArmbandDataset/EvaluationDataset', type="Test0")
+    examples, labels = load_evaluation_dataset.read_data('/home/tug18152/MyoArmbandDataset/EvaluationDataset', type="Test0")
     datasets = [examples, labels]
 
-    np.save("/home/thangvle/Desktop/github/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test0.npy", datasets)
+    np.save("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test0.npy", datasets)
 
-    examples, labels = load_evaluation_dataset.read_data('/home/thangvle/Desktop/github/MyoArmbandDataset/EvaluationDataset', type="Test1")
+    examples, labels = load_evaluation_dataset.read_data('/home/tug18152/MyoArmbandDataset/EvaluationDataset', type="Test1")
     datasets = [examples, labels]
 
-    np.save("/home/thangvle/Desktop/github/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test1.npy", datasets)
+    np.save("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test1.npy", datasets)
 
     # And here if the pre-training dataset was already processed and saved
 
     # Comment between here
 
-    datasets_training = np.load("/home/thangvle/Desktop/github/MyoArmbandDataset/formatted_datasets/saved_evaluation_dataset_training.npy", encoding="bytes", allow_pickle=True)
+    datasets_training = np.load("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_training.npy", encoding="bytes", allow_pickle=True)
     examples_training, labels_training = datasets_training
 
-    datasets_test0 = np.load("/home/thangvle/Desktop/github/MyoArmbandDataset/formatted_datasets/saved_evaluation_dataset_test0.npy", encoding="bytes", allow_pickle=True)
+    datasets_test0 = np.load("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test0.npy", encoding="bytes", allow_pickle=True)
     examples_test0, labels_test0 = datasets_test0
 
-    datasets_test1 = np.load("/home/thangvle/Desktop/github/MyoArmbandDataset/formatted_datasets/saved_evaluation_dataset_test1.npy", encoding="bytes", allow_pickle=True)
+    datasets_test1 = np.load("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/formatted_datasets/saved_evaluation_dataset_test1.npy", encoding="bytes", allow_pickle=True)
     examples_test1, labels_test1 = datasets_test1
+
 
     # And here if the pre-training of the network was already completed.
     accuracy_one_by_one = []
@@ -497,7 +499,7 @@ if __name__ == '__main__':
     array_validation_error = []
     # learning_rate=0.002335721469090121 (for network enhanced)
 
-    with open("results/evaluation_dataset_TARGET_convnet_enhanced.txt", "a") as myfile:
+    with open("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/RawEnhancedConvNet/results/evaluation_dataset_TARGET_convnet_enhanced.txt", "a") as myfile:
         myfile.write("Test")
     for training_cycle in range(1, 5):
         test_0 = []
@@ -520,7 +522,7 @@ if __name__ == '__main__':
         print("ACCURACY FINAL TEST 1: ", np.mean(test_1))
         print("ACCURACY FINAL: ", (np.mean(test_0) + np.mean(test_1)) / 2.)
 
-        with open("results/evaluation_dataset_TARGET_convnet_enhanced.txt", "a") as myfile:
+        with open("/home/tug18152/MyoArmbandDataset/PyTorchImplementation/RawEnhancedConvNet/results/evaluation_dataset_TARGET_convnet_enhanced.txt", "a") as myfile:
             myfile.write("ConvNet Training Cycle : " + str(training_cycle) + "\n\n")
             myfile.write("Test 0: \n")
             myfile.write(str(test_0) + '\n')
